@@ -1,0 +1,14 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    file_names: ignore
+    deprecated_member_use: ignore
+    avoid_print: ignore
+    prefer_final_fields: ignore
+    prefer_const_declarations: ignore
+
+linter:
+  rules:
+    file_names: false
+    avoid_print: false

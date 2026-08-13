@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed-variant": "#005236",
+                        "outline": "#6c7a71",
+                        "surface-variant": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "primary": "#006c49",
+                        "secondary-fixed": "#ffdad7",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-surface-variant": "#3c4a42",
+                        "outline-variant": "#bbcabf",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-container": "#10b981",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-primary-container": "#00422b",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed": "#002113",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "surface-dim": "#cbdbf5",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "inverse-primary": "#4edea3",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#410004",
+                        "secondary-container": "#da3437",
+                        "on-secondary-fixed-variant": "#930013",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary": "#005ac2",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-tertiary-container": "#00367a",
+                        "tertiary-container": "#71a1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "secondary": "#b61722",
+                        "on-secondary-container": "#fffbff",
+                        "primary-fixed": "#6ffbbe",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-tint": "#006c49",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "margin-desktop": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-hero-mobile": ["Inter"],
+                        "display-hero": ["Inter"],
+                        "numeric-data": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-hero-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "numeric-data": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .soft-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 md:pb-0">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-background dark:bg-on-background flat no shadows">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<img alt="User profile photo" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8IW9ntVtXOnAu3ZifumTmH8iHy0-GZhMtwXWDltdC7JH_NXLkNshRnt-Mc9YMTf2-lfO-sl9sAuWlQGpWisU9OagwuWJip_J524l0Zm5HYSwGXRcG3pqBr9YNS0RmQkPSc6zTYqi8viyZU_qhGykETO__XXcKkm2izUNJRpBSPj9GLwKQvjPfYX13ECnMKgnIGazA0HhFmfzQUbf4_0i6rYKSz3w6DnCW6LQy-lxilKDwIUI_w2SkbA"/>
+<h1 class="font-display-hero-mobile text-display-hero-mobile text-primary dark:text-primary-fixed-dim hidden md:block">Moneta Trail</h1>
+</div>
+<h1 class="font-display-hero-mobile text-display-hero-mobile text-primary dark:text-primary-fixed-dim md:hidden">Moneta Trail</h1>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors active:scale-95 duration-200 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-6 space-y-gutter">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-1">Financial Analysis</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Your wealth trajectory overview</p>
+</div>
+<div class="flex gap-2 bg-surface-container-low p-1 rounded-full">
+<button class="px-4 py-1.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-variant/50 transition-colors">6M</button>
+<button class="px-4 py-1.5 rounded-full font-label-caps text-label-caps bg-primary text-on-primary shadow-sm transition-colors">1Y</button>
+<button class="px-4 py-1.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-variant/50 transition-colors">ALL</button>
+</div>
+</div>
+<!-- Summary Stats Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-8">
+<!-- Net Savings Rate (Hero Stat) -->
+<div class="glass-panel soft-shadow rounded-xl p-card-padding flex flex-col justify-between h-full relative overflow-hidden group">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500"></div>
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Net Savings Rate</span>
+<div class="bg-primary-container/20 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+<div class="font-display-hero-mobile text-display-hero-mobile text-on-background mb-2">32.4%</div>
+</div>
+<div class="font-body-sm text-body-sm text-primary flex items-center gap-1 mt-4">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_upward">arrow_upward</span>
+<span>+4.2% vs last period</span>
+</div>
+</div>
+<!-- Total Income -->
+<div class="glass-panel soft-shadow rounded-xl p-card-padding flex flex-col justify-between h-full">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Total Income (6M)</span>
+<div class="bg-tertiary-container/20 p-2 rounded-full">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+<div class="font-numeric-data text-numeric-data text-on-background mb-2">$42,500.00</div>
+</div>
+<div class="w-full h-1 bg-surface-container mt-4 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-full"></div>
+</div>
+</div>
+<!-- Total Expenses -->
+<div class="glass-panel soft-shadow rounded-xl p-card-padding flex flex-col justify-between h-full">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Total Expenses (6M)</span>
+<div class="bg-error-container/20 p-2 rounded-full">
+<span class="material-symbols-outlined text-error text-sm" data-icon="credit_card">credit_card</span>
+</div>
+</div>
+<div class="font-numeric-data text-numeric-data text-on-background mb-2">$28,730.00</div>
+</div>
+<div class="w-full h-1 bg-surface-container mt-4 rounded-full overflow-hidden">
+<div class="h-full bg-error w-2/3"></div>
+</div>
+</div>
+</div>
+<!-- Charts Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Income vs Expenses Multi-line Chart -->
+<div class="glass-panel soft-shadow rounded-xl p-card-padding h-[400px] flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-background">Cash Flow</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+</button>
+</div>
+<div class="relative flex-grow w-full">
+<canvas id="cashFlowChart"></canvas>
+</div>
+</div>
+<!-- Category Spending Stacked Bar Chart -->
+<div class="glass-panel soft-shadow rounded-xl p-card-padding h-[400px] flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-background">Spending Breakdown</h3>
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-[#10b981] inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-[#71a1ff] inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-[#ffdad7] inline-block"></span>
+</div>
+</div>
+<div class="relative flex-grow w-full">
+<canvas id="spendingCategoryChart"></canvas>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 md:hidden bg-surface/80 dark:bg-on-background/80 backdrop-blur-md shadow-lg">
+<div class="flex justify-around items-center w-full px-2 py-3 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/20 transition-all duration-300 active:scale-90 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-caps text-label-caps">Records</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold hover:bg-surface-variant/20 transition-all duration-300 active:scale-90 p-2 rounded-lg relative" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="insert_chart" data-weight="fill">insert_chart</span>
+<span class="font-label-caps text-label-caps">Analysis</span>
+<span class="absolute -top-1 w-1.5 h-1.5 bg-primary rounded-full"></span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/20 transition-all duration-300 active:scale-90 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps">Budgets</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/20 transition-all duration-300 active:scale-90 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance">account_balance</span>
+<span class="font-label-caps text-label-caps">Accounts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/20 transition-all duration-300 active:scale-90 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="grid_view">grid_view</span>
+<span class="font-label-caps text-label-caps">Categories</span>
+</a>
+</div>
+</nav>
+<!-- Desktop Side Nav Placeholder (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-screen w-64 border-r border-surface-container bg-surface pt-20 px-4 z-30">
+<!-- Minimal navigation items would go here to match the bottom nav structurally if it were a full dashboard -->
+<div class="space-y-2 mt-4">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-body-sm text-body-sm">Records</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg bg-surface-container-low text-primary font-bold transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="insert_chart" data-weight="fill">insert_chart</span>
+<span class="font-body-sm text-body-sm">Analysis</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-body-sm text-body-sm">Budgets</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-body-sm text-body-sm">Accounts</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-body-sm text-body-sm">Categories</span>
+</a>
+</div>
+</aside>
+<style>
+        /* Adjust main padding on desktop to account for side nav if implemented fully */
+        @media (min-width: 768px) {
+            main { padding-left: 17rem; /* 64 (w-64) = 16rem + 1rem padding */ max-width: none; }
+            header .max-w-7xl { max-width: none; padding-left: 17rem; }
+        }
+    </style>
+<!-- Chart Configuration Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Material Symbols Setup
+            document.querySelectorAll('[data-icon]').forEach(el => {
+                el.textContent = el.getAttribute('data-icon');
+                if (el.getAttribute('data-weight') === 'fill') {
+                    el.style.fontVariationSettings = "'FILL' 1";
+                }
+            });
+
+            // Common Chart Options
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true,
+                            boxWidth: 8,
+                            font: { family: 'Inter', size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#213145', // inverse-surface
+                        titleColor: '#ffffff',
+                        bodyColor: '#eaf1ff', // inverse-on-surface
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: true,
+                        usePointStyle: true
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false, drawBorder: false },
+                        ticks: { font: { family: 'Inter', size: 12 }, color: '#6c7a71' }
+                    },
+                    y: {
+                        grid: { color: '#e5eeff', borderDash: [5, 5], drawBorder: false },
+                        ticks: {
+                            font: { family: 'Inter', size: 12 },
+                            color: '#6c7a71',
+                            callback: function(value) { return '$' + value / 1000 + 'k'; }
+                        }
+                    }
+                }
+            };
+
+            // Cash Flow Chart (Multi-line)
+            const ctxCash = document.getElementById('cashFlowChart').getContext('2d');
+            
+            // Create Gradients
+            const gradientIncome = ctxCash.createLinearGradient(0, 0, 0, 400);
+            gradientIncome.addColorStop(0, 'rgba(0, 90, 194, 0.2)'); // tertiary
+            gradientIncome.addColorStop(1, 'rgba(0, 90, 194, 0)');
+
+            const gradientExpense = ctxCash.createLinearGradient(0, 0, 0, 400);
+            gradientExpense.addColorStop(0, 'rgba(186, 26, 26, 0.2)'); // error
+            gradientExpense.addColorStop(1, 'rgba(186, 26, 26, 0)');
+
+            new Chart(ctxCash, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [
+                        {
+                            label: 'Income',
+                            data: [6500, 7200, 6800, 7500, 7000, 7500],
+                            borderColor: '#005ac2', // tertiary
+                            backgroundColor: gradientIncome,
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#005ac2',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Expenses',
+                            data: [4200, 4800, 4100, 5200, 4900, 5530],
+                            borderColor: '#ba1a1a', // error
+                            backgroundColor: gradientExpense,
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#ba1a1a',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: Object.assign({}, commonOptions, {
+                    interaction: { mode: 'index', intersect: false }
+                })
+            });
+
+            // Spending Category Chart (Stacked Bar)
+            const ctxSpending = document.getElementById('spendingCategoryChart').getContext('2d');
+            new Chart(ctxSpending, {
+                type: 'bar',
+                data: {
+                    labels: ['W1', 'W2', 'W3', 'W4'],
+                    datasets: [
+                        {
+                            label: 'Housing',
+                            data: [1200, 0, 0, 1200], // Example of bi-weekly rent/mortgage payments maybe
+                            backgroundColor: '#10b981', // primary-container
+                            borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 4, bottomRight: 4 },
+                            barThickness: 24
+                        },
+                        {
+                            label: 'Food & Dining',
+                            data: [350, 420, 380, 450],
+                            backgroundColor: '#71a1ff', // tertiary-container
+                            borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 4, bottomRight: 4 },
+                            barThickness: 24
+                        },
+                        {
+                            label: 'Transportation',
+                            data: [120, 80, 150, 90],
+                            backgroundColor: '#ffdad7', // secondary-fixed
+                            borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 4, bottomRight: 4 },
+                            barThickness: 24
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: commonOptions.plugins,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { display: false, drawBorder: false },
+                            ticks: { font: { family: 'Inter', size: 12 }, color: '#6c7a71' }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: { color: '#e5eeff', borderDash: [5, 5], drawBorder: false },
+                            ticks: {
+                                font: { family: 'Inter', size: 12 },
+                                color: '#6c7a71',
+                                callback: function(value) { return '$' + value; }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Profile and Security</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed-variant": "#005236",
+                        "outline": "#6c7a71",
+                        "surface-variant": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "primary": "#006c49",
+                        "secondary-fixed": "#ffdad7",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-surface-variant": "#3c4a42",
+                        "outline-variant": "#bbcabf",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-container": "#10b981",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-primary-container": "#00422b",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed": "#002113",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "surface-dim": "#cbdbf5",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "inverse-primary": "#4edea3",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#410004",
+                        "secondary-container": "#da3437",
+                        "on-secondary-fixed-variant": "#930013",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary": "#005ac2",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-tertiary-container": "#00367a",
+                        "tertiary-container": "#71a1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "secondary": "#b61722",
+                        "on-secondary-container": "#fffbff",
+                        "primary-fixed": "#6ffbbe",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-tint": "#006c49",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "margin-desktop": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-hero-mobile": ["Inter"],
+                        "display-hero": ["Inter"],
+                        "numeric-data": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-hero-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "numeric-data": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        /* Soft shadows for cards */
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center">
+<!-- Top App Bar (Modified for sub-page) -->
+<header class="w-full top-0 sticky bg-background z-40">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-3xl mx-auto">
+<button class="flex items-center justify-center p-2 rounded-full hover:bg-surface-container-low transition-colors active:scale-95 duration-200 text-on-surface-variant">
+<span class="material-symbols-outlined text-headline-md font-headline-md" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-on-background">Profile &amp; Security</h1>
+<div class="w-10 h-10"></div> <!-- Placeholder to balance flex-between -->
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full flex-grow px-margin-mobile md:px-margin-desktop py-6 max-w-3xl mx-auto flex flex-col gap-gutter pb-24">
+<!-- Profile Section Card -->
+<section class="bg-surface rounded-xl card-shadow p-card-padding flex flex-col gap-6">
+<h2 class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Personal Details</h2>
+<!-- Avatar Placeholder (Decorative) -->
+<div class="flex justify-center mb-2">
+<div class="w-24 h-24 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border-4 border-surface-container-lowest shadow-sm relative group cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A close-up, modern portrait of a young professional in soft, high-key lighting, maintaining a clean and approachable minimalist aesthetic with subtle green undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGPENnu6bbry8ETC1g9_Z9Y3BqTDTNqg2GlO9P-bXfmwSw4g-s9hoN0gYQ8yToydHAv8-4uOCa6WjEX4841HKZMSpl-qLr7pG8_gBy4vzEvtzieos-v57RUQ83ScmJxCQdfsNdfJEZtRIkx5q2au47Y6Gjk2Yy3oTVBNdgNBE-3quZkTFZ_WJQJ9c7kI2vkNWgfpmgqIIK5Gtpqe-qgL479xqlErkkKjUCnTaR9Ljkx-QJAFt9hEWH4Q">
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-primary" data-icon="edit">edit</span>
+</div>
+</div>
+</div>
+<!-- Form Fields -->
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-base">
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="username">Username</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant" data-icon="person">person</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-4 font-body-lg text-body-lg text-on-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow" id="username" type="text" value="alex_anderson">
+</div>
+</div>
+<div class="flex flex-col gap-base">
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="phone">Phone Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant" data-icon="phone">phone</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-4 font-body-lg text-body-lg text-on-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow" id="phone" type="tel" value="+1 (555) 019-2834">
+</div>
+</div>
+<div class="flex flex-col gap-base">
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="currency">Primary Currency</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant" data-icon="payments">payments</span>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-10 font-body-lg text-body-lg text-on-background appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow cursor-pointer" id="currency">
+<option selected="" value="USD">USD ($) - US Dollar</option>
+<option value="EUR">EUR (€) - Euro</option>
+<option value="GBP">GBP (£) - British Pound</option>
+<option value="JPY">JPY (¥) - Japanese Yen</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Section Card -->
+<section class="bg-surface rounded-xl card-shadow p-card-padding flex flex-col gap-6 mt-4">
+<h2 class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Security Settings</h2>
+<div class="flex flex-col gap-4">
+<!-- 2FA Toggle -->
+<div class="flex items-center justify-between py-2 border-b border-surface-container-highest">
+<div class="flex flex-col pr-4">
+<span class="font-body-lg text-body-lg text-on-background font-semibold">Two-Factor Authentication</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Add an extra layer of security to your account.</span>
+</div>
+<!-- Custom Toggle Switch -->
+<label class="flex items-center cursor-pointer" for="2fa-toggle">
+<div class="relative">
+<input checked="" class="sr-only" id="2fa-toggle" type="checkbox">
+<!-- Line -->
+<div class="block bg-primary-fixed-dim w-12 h-6 rounded-full transition-colors duration-300 peer-checked:bg-primary toggle-bg"></div>
+<!-- Dot -->
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 transform translate-x-6"></div>
+</div>
+</label>
+</div>
+<!-- Password Row -->
+<div class="flex items-center justify-between py-2 cursor-pointer group">
+<div class="flex flex-col pr-4">
+<span class="font-body-lg text-body-lg text-on-background font-semibold">Change Password</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Last updated 3 months ago.</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Danger Zone Section Card -->
+<section class="bg-error-container/30 rounded-xl card-shadow p-card-padding flex flex-col gap-6 mt-4 border border-error-container">
+<h2 class="font-label-caps text-label-caps text-error tracking-widest uppercase">Danger Zone</h2>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex flex-col pr-4">
+<span class="font-body-lg text-body-lg text-on-background font-semibold">Delete Account</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Permanently remove all your data and settings. This action cannot be undone.</span>
+</div>
+<button class="bg-transparent border-2 border-error text-error font-body-lg text-body-lg py-2 px-6 rounded-lg hover:bg-error/10 active:scale-95 transition-all duration-200 whitespace-nowrap self-start sm:self-center font-semibold">
+                    Delete Account
+                </button>
+</div>
+</section>
+<!-- Save Action (Sticky to bottom on mobile, just at end on desktop) -->
+<div class="mt-8 flex justify-end pb-8">
+<button class="w-full sm:w-auto bg-primary text-on-primary font-headline-md text-headline-md py-4 sm:py-3 px-8 rounded-full shadow-lg hover:bg-surface-tint active:scale-95 transition-all duration-300 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                Save Changes
+            </button>
+</div>
+</main>
+<!-- BottomNavBar Suppressed: This is a sub-page (Settings -> Profile & Security) with a back button, indicating a linear/task-focused departure from the main navigation flow. -->
+<script>
+        // Simple toggle logic for visual feedback
+        const toggleInput = document.getElementById('2fa-toggle');
+        const toggleBg = toggleInput.nextElementSibling;
+        const toggleDot = toggleBg.nextElementSibling;
+
+        toggleInput.addEventListener('change', function() {
+            if(this.checked) {
+                toggleBg.classList.replace('bg-surface-variant', 'bg-primary');
+                toggleDot.classList.add('translate-x-6');
+            } else {
+                toggleBg.classList.replace('bg-primary', 'bg-surface-variant');
+                toggleDot.classList.remove('translate-x-6');
+            }
+        });
+    </script>
+
+
+<nav class="fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant px-6 py-2 flex justify-between items-center z-40">
+  <button class="flex flex-col items-center gap-1 p-2 text-on-surface-variant hover:text-primary transition-colors">
+    <span class="material-symbols-outlined">home</span>
+    <span class="text-label-caps">Home</span>
+  </button>
+  <button class="flex flex-col items-center gap-1 p-2 text-on-surface-variant hover:text-primary transition-colors">
+    <span class="material-symbols-outlined">account_balance_wallet</span>
+    <span class="text-label-caps">Wallet</span>
+  </button>
+  <button class="flex flex-col items-center gap-1 p-2 text-on-surface-variant hover:text-primary transition-colors">
+    <span class="material-symbols-outlined">analytics</span>
+    <span class="text-label-caps">Insights</span>
+  </button>
+  <button class="flex flex-col items-center gap-1 p-2 text-primary">
+    <span class="material-symbols-outlined" data-weight="fill">settings</span>
+    <span class="text-label-caps">Settings</span>
+  </button>
+</nav></body></html>

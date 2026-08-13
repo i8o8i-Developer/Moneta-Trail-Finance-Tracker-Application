@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Moneta Trail - Financial Management</title>
+    <!-- Tailwind CSS with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed-variant": "#005236",
+                        "outline": "#6c7a71",
+                        "surface-variant": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "primary": "#006c49",
+                        "secondary-fixed": "#ffdad7",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-surface-variant": "#3c4a42",
+                        "outline-variant": "#bbcabf",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-container": "#10b981",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-primary-container": "#00422b",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed": "#002113",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "surface-dim": "#cbdbf5",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "inverse-primary": "#4edea3",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#410004",
+                        "secondary-container": "#da3437",
+                        "on-secondary-fixed-variant": "#930013",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary": "#005ac2",
+                        "on-tertiary-fixed": "#001a42",
+                        "on-tertiary-container": "#00367a",
+                        "tertiary-container": "#71a1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "secondary": "#b61722",
+                        "on-secondary-container": "#fffbff",
+                        "primary-fixed": "#6ffbbe",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-tint": "#006c49",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "margin-desktop": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-hero-mobile": ["Inter"],
+                        "display-hero": ["Inter"],
+                        "numeric-data": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-hero-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "numeric-data": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; min-height: 100vh; }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .soft-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
+        .card-shadow { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02); }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @media (min-width: 768px) {
+            .desktop-content { margin-left: 16rem; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background">
+    <div id="root"></div>
+
+    <!-- React Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { createRoot } = ReactDOM;
+        const { MemoryRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+        // --- Shared Components ---
+
+        const Icon = ({ name, fill = false, className = "" }) => (
+            <span 
+                className={`material-symbols-outlined ${className}`} 
+                style={{ fontVariationSettings: `'FILL' ${fill ? 1 : 0}` }}
+            >
+                {name}
+            </span>
+        );
+
+        const TopAppBar = ({ title, showMenu = true, leadingAction, trailingAction }) => {
+            const navigate = useNavigate();
+            return (
+                <header className="fixed top-0 left-0 right-0 h-16 z-50 bg-background/95 backdrop-blur-md border-b border-surface-container flex items-center justify-between px-margin-mobile md:px-margin-desktop">
+                    <div className="flex items-center gap-3">
+                        {leadingAction ? leadingAction : (
+                            showMenu ? (
+                                <button className="p-2 rounded-full hover:bg-surface-container transition-colors">
+                                    <Icon name="menu" />
+                                </button>
+                            ) : (
+                                <button onClick={() => navigate(-1)} className="p-2 rounded-full hover:bg-surface-container transition-colors">
+                                    <Icon name="arrow_back" />
+                                </button>
+                            )
+                        )}
+                        <h1 className="font-headline-md text-headline-md text-primary font-bold">{title || "Moneta Trail"}</h1>
+                    </div>
+                    {trailingAction ? trailingAction : (
+                        <Link to="/settings" className="w-10 h-10 rounded-full overflow-hidden hover:opacity-80 transition-opacity">
+                            <img alt="User" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8IW9ntVtXOnAu3ZifumTmH8iHy0-GZhMtwXWDltdC7JH_NXLkNshRnt-Mc9YMTf2-lfO-sl9sAuWlQGpWisU9OagwuWJip_J524l0Zm5HYSwGXRcG3pqBr9YNS0RmQkPSc6zTYqi8viyZU_qhGykETO__XXcKkm2izUNJRpBSPj9GLwKQvjPfYX13ECnMKgnIGazA0HhFmfzQUbf4_0i6rYKSz3w6DnCW6LQy-lxilKDwIUI_w2SkbA" className="w-full h-full object-cover" />
+                        </Link>
+                    )}
+                </header>
+            );
+        };
+
+        const BottomNavBar = () => {
+            const location = useLocation();
+            const navItems = [
+                { path: "/records", icon: "receipt_long", label: "Records" },
+                { path: "/analysis", icon: "insert_chart", label: "Analysis" },
+                { path: "/budgets", icon: "account_balance_wallet", label: "Budgets" },
+                { path: "/accounts", icon: "account_balance", label: "Accounts" },
+                { path: "/categories", icon: "category", label: "Categories" },
+            ];
+
+            return (
+                <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface/90 backdrop-blur-md border-t border-surface-container h-16 pb-safe md:hidden">
+                    {navItems.map(item => {
+                        const isActive = location.pathname === item.path;
+                        return (
+                            <Link key={item.path} to={item.path} className={`flex flex-col items-center justify-center flex-1 transition-colors ${isActive ? "text-primary" : "text-on-surface-variant"}`}>
+                                <Icon name={item.icon} fill={isActive} className="mb-0.5" />
+                                <span className="text-[10px] font-label-caps uppercase font-bold">{item.label}</span>
+                                {isActive && <div className="w-1 h-1 bg-primary rounded-full mt-0.5" />}
+                            </Link>
+                        );
+                    })}
+                </nav>
+            );
+        };
+
+        const SideNav = () => {
+            const location = useLocation();
+            const navItems = [
+                { path: "/records", icon: "receipt_long", label: "Records" },
+                { path: "/analysis", icon: "insert_chart", label: "Analysis" },
+                { path: "/budgets", icon: "account_balance_wallet", label: "Budgets" },
+                { path: "/accounts", icon: "account_balance", label: "Accounts" },
+                { path: "/categories", icon: "category", label: "Categories" },
+            ];
+
+            return (
+                <aside className="hidden md:flex flex-col fixed left-0 top-0 h-screen w-64 border-r border-surface-container bg-surface pt-20 px-4 z-30">
+                    <div className="space-y-2">
+                        {navItems.map(item => {
+                            const isActive = location.pathname === item.path;
+                            return (
+                                <Link 
+                                    key={item.path} 
+                                    to={item.path} 
+                                    className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-colors ${isActive ? "bg-surface-container-low text-primary font-bold shadow-sm" : "text-on-surface-variant hover:bg-surface-container-low"}`}
+                                >
+                                    <Icon name={item.icon} fill={isActive} />
+                                    <span className="font-body-sm">{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </aside>
+            );
+        };
+
+        // --- Screen Components ---
+
+        const AnalysisPage = () => {
+            const chartRef1 = useRef(null);
+            const chartRef2 = useRef(null);
+
+            useEffect(() => {
+                const ctx1 = chartRef1.current.getContext('2d');
+                const ctx2 = chartRef2.current.getContext('2d');
+
+                const g1 = ctx1.createLinearGradient(0, 0, 0, 400);
+                g1.addColorStop(0, 'rgba(0, 90, 194, 0.2)');
+                g1.addColorStop(1, 'rgba(0, 90, 194, 0)');
+
+                const g2 = ctx1.createLinearGradient(0, 0, 0, 400);
+                g2.addColorStop(0, 'rgba(186, 26, 26, 0.2)');
+                g2.addColorStop(1, 'rgba(186, 26, 26, 0)');
+
+                const c1 = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [
+                            { label: 'Income', data: [6500, 7200, 6800, 7500, 7000, 7500], borderColor: '#005ac2', backgroundColor: g1, borderWidth: 3, tension: 0.4, fill: true },
+                            { label: 'Expenses', data: [4200, 4800, 4100, 5200, 4900, 5530], borderColor: '#ba1a1a', backgroundColor: g2, borderWidth: 3, tension: 0.4, fill: true }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+                });
+
+                const c2 = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['W1', 'W2', 'W3', 'W4'],
+                        datasets: [
+                            { label: 'Housing', data: [1200, 0, 0, 1200], backgroundColor: '#10b981' },
+                            { label: 'Food', data: [350, 420, 380, 450], backgroundColor: '#71a1ff' },
+                            { label: 'Transport', data: [120, 80, 150, 90], backgroundColor: '#ffdad7' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+                });
+
+                return () => { c1.destroy(); c2.destroy(); };
+            }, []);
+
+            return (
+                <div className="pt-20 desktop-content pb-24 md:pb-8 px-4">
+                    <div className="flex justify-between items-end mb-8 max-w-7xl mx-auto">
+                        <div>
+                            <h2 className="font-headline-md text-headline-md text-on-background mb-1">Financial Analysis</h2>
+                            <p className="font-body-sm text-body-sm text-on-surface-variant">Wealth trajectory overview</p>
+                        </div>
+                        <div className="flex gap-2 bg-surface-container-low p-1 rounded-full">
+                            <button className="px-4 py-1.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-variant/50">6M</button>
+                            <button className="px-4 py-1.5 rounded-full font-label-caps text-label-caps bg-primary text-on-primary">1Y</button>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-7xl mx-auto">
+                        <div className="glass-panel soft-shadow rounded-xl p-6 relative overflow-hidden group">
+                            <div className="flex justify-between items-start mb-4">
+                                <span className="font-label-caps text-label-caps text-on-surface-variant">Savings Rate</span>
+                                <Icon name="trending_up" className="text-primary bg-primary-container/20 p-2 rounded-full text-sm" />
+                            </div>
+                            <div className="font-display-hero-mobile text-display-hero-mobile text-on-background">32.4%</div>
+                            <div className="text-primary text-body-sm flex items-center gap-1 mt-4">
+                                <Icon name="arrow_upward" className="text-sm" /> +4.2% vs last
+                            </div>
+                        </div>
+                        <div className="glass-panel soft-shadow rounded-xl p-6">
+                            <span className="font-label-caps text-label-caps text-on-surface-variant block mb-4">Total Income (6M)</span>
+                            <div className="font-numeric-data text-numeric-data text-on-background mb-2">$42,500.00</div>
+                            <div className="w-full h-1 bg-surface-container rounded-full overflow-hidden mt-4">
+                                <div className="h-full bg-tertiary w-full" />
+                            </div>
+                        </div>
+                        <div className="glass-panel soft-shadow rounded-xl p-6">
+                            <span className="font-label-caps text-label-caps text-on-surface-variant block mb-4">Total Expenses (6M)</span>
+                            <div className="font-numeric-data text-numeric-data text-on-background mb-2">$28,730.00</div>
+                            <div className="w-full h-1 bg-surface-container rounded-full overflow-hidden mt-4">
+                                <div className="h-full bg-error w-2/3" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
+                        <div className="glass-panel soft-shadow rounded-xl p-6 h-[400px] flex flex-col">
+                            <h3 className="font-headline-md text-headline-md mb-6">Cash Flow</h3>
+                            <div className="flex-grow relative"><canvas ref={chartRef1}></canvas></div>
+                        </div>
+                        <div className="glass-panel soft-shadow rounded-xl p-6 h-[400px] flex flex-col">
+                            <h3 className="font-headline-md text-headline-md mb-6">Spending Breakdown</h3>
+                            <div className="flex-grow relative"><canvas ref={chartRef2}></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const BudgetsPage = () => (
+            <div className="pt-20 desktop-content pb-24 md:pb-8 px-4">
+                <section className="flex justify-center mb-8">
+                    <div className="inline-flex bg-surface-container-low rounded-full p-1 card-shadow">
+                        <button className="p-2"><Icon name="chevron_left" /></button>
+                        <button className="px-6 py-2 bg-surface text-primary font-bold shadow-sm rounded-full min-w-[120px]">October</button>
+                        <button className="p-2"><Icon name="chevron_right" /></button>
+                    </div>
+                </section>
+
+                <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="md:col-span-2 bg-surface rounded-xl card-shadow p-6">
+                        <h2 className="text-headline-md font-bold mb-1">Total Budget</h2>
+                        <p className="text-body-sm text-on-surface-variant mb-8">Spent 68% of your limit</p>
+                        <div className="flex justify-between items-end mb-4">
+                            <div>
+                                <span className="text-label-caps text-on-surface-variant uppercase block">Spent</span>
+                                <span className="text-display-hero-mobile font-bold">$2,450.00</span>
+                            </div>
+                            <div className="text-right">
+                                <span className="text-label-caps text-on-surface-variant uppercase block">Limit</span>
+                                <span className="text-numeric-data">$3,600.00</span>
+                            </div>
+                        </div>
+                        <div className="w-full bg-surface-container-high rounded-full h-3 mb-2">
+                            <div className="bg-primary h-full rounded-full transition-all w-[68%]" />
+                        </div>
+                        <div className="flex justify-between text-body-sm">
+                            <span className="text-outline">$0</span>
+                            <span className="text-primary font-bold">Remaining: $1,150.00</span>
+                        </div>
+                    </div>
+                    <div className="bg-surface rounded-xl card-shadow p-6 flex flex-col items-center justify-center">
+                        <h3 className="text-body-lg text-on-surface-variant self-start mb-4">Health</h3>
+                        <div className="relative w-32 h-32 flex items-center justify-center">
+                             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#e5eeff" strokeWidth="10" />
+                                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#10b981" strokeWidth="10" strokeDasharray="251" strokeDashoffset="100" strokeLinecap="round" />
+                             </svg>
+                             <div className="absolute flex flex-col items-center">
+                                <Icon name="thumb_up" fill className="text-primary" />
+                                <span className="text-numeric-data font-bold">Good</span>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="max-w-4xl mx-auto">
+                    <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-headline-md font-bold">Category Budgets</h2>
+                        <button className="text-primary font-bold flex items-center gap-1 hover:bg-surface-container p-2 rounded-lg">
+                            <Icon name="add" /> New
+                        </button>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {[
+                            { name: "Housing & Utilities", icon: "home", color: "tertiary", spent: 1400, limit: 1500, percent: "93%" },
+                            { name: "Groceries", icon: "shopping_basket", color: "primary", spent: 320, limit: 600, percent: "53%" },
+                            { name: "Dining Out", icon: "restaurant", color: "error", spent: 450, limit: 400, percent: "112%", warning: true }
+                        ].map((item, idx) => (
+                            <div key={idx} className={`rounded-xl card-shadow p-4 transition-transform hover:-translate-y-1 ${item.warning ? 'bg-error-container/30 border border-error/20' : 'bg-surface'}`}>
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${item.warning ? 'bg-surface text-error' : 'bg-surface-container-high'}`}>
+                                            <Icon name={item.icon} fill />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold">{item.name}</h3>
+                                            <p className={`text-body-sm ${item.warning ? 'text-error' : 'text-on-surface-variant'}`}>{item.warning ? 'Over budget' : 'Active'}</p>
+                                        </div>
+                                    </div>
+                                    <span className={`text-numeric-data font-bold ${item.warning ? 'text-error' : ''}`}>${item.spent} <span className="text-xs font-normal opacity-70">/ ${item.limit}</span></span>
+                                </div>
+                                <div className="w-full bg-surface-container rounded-full h-2 mb-2">
+                                    <div className={`h-full rounded-full ${item.warning ? 'bg-error w-full' : 'bg-primary'} transition-all`} style={{ width: item.warning ? '100%' : item.percent }} />
+                                </div>
+                                <div className={`flex justify-between text-label-caps ${item.warning ? 'text-error' : 'text-on-surface-variant'}`}>
+                                    <span>{item.spent > item.limit ? `-$${item.spent - item.limit}` : `$${item.limit - item.spent}`} Remaining</span>
+                                    <span>{item.percent}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+
+        const RecordsPage = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="pt-20 desktop-content pb-24 md:pb-8 px-4">
+                    <div className="flex items-center justify-center space-x-6 mb-8 max-w-4xl mx-auto">
+                        <button className="p-2"><Icon name="chevron_left" /></button>
+                        <div className="text-headline-md font-bold w-40 text-center">October 2023</div>
+                        <button className="p-2"><Icon name="chevron_right" /></button>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4 mb-10 max-w-4xl mx-auto">
+                        <div className="bg-surface rounded-xl p-4 shadow-ambient flex flex-col items-center">
+                            <span className="text-body-sm text-on-surface-variant mb-1">Expense</span>
+                            <span className="text-numeric-data font-bold text-secondary">-$1,200</span>
+                        </div>
+                        <div className="bg-surface rounded-xl p-4 shadow-ambient flex flex-col items-center">
+                            <span className="text-body-sm text-on-surface-variant mb-1">Income</span>
+                            <span className="text-numeric-data font-bold text-primary">+$3,500</span>
+                        </div>
+                        <div className="bg-surface rounded-xl p-4 shadow-ambient flex flex-col items-center border border-primary/10">
+                            <span className="text-body-sm text-on-surface-variant mb-1">Balance</span>
+                            <span className="text-numeric-data font-bold">$2,300</span>
+                        </div>
+                    </div>
+
+                    <div className="space-y-8 max-w-4xl mx-auto">
+                        <div>
+                            <div className="flex justify-between items-end mb-4 border-b border-surface-container-highest pb-2">
+                                <h2 className="text-label-caps text-on-surface-variant tracking-widest uppercase">Today</h2>
+                                <span className="text-body-sm text-on-surface-variant">-$45.00</span>
+                            </div>
+                            <div className="bg-surface rounded-xl p-4 shadow-ambient flex items-center mb-4">
+                                <div className="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mr-4">
+                                    <Icon name="shopping_cart" fill />
+                                </div>
+                                <div className="flex-grow">
+                                    <div className="text-body-lg font-medium">Groceries</div>
+                                    <div className="text-body-sm text-on-surface-variant">Bank Account</div>
+                                </div>
+                                <div className="text-numeric-data font-bold text-secondary">-$45.00</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="flex justify-between items-end mb-4 border-b border-surface-container-highest pb-2">
+                                <h2 className="text-label-caps text-on-surface-variant tracking-widest uppercase">Yesterday</h2>
+                                <span className="text-body-sm text-on-surface-variant">+$2,500.00</span>
+                            </div>
+                            <div className="bg-surface rounded-xl p-4 shadow-ambient flex items-center">
+                                <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mr-4">
+                                    <Icon name="payments" fill />
+                                </div>
+                                <div className="flex-grow">
+                                    <div className="text-body-lg font-medium">Company Inc Salary</div>
+                                    <div className="text-body-sm text-on-surface-variant">Savings Account</div>
+                                </div>
+                                <div className="text-numeric-data font-bold text-primary">+$2,500.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button 
+                        onClick={() => navigate('/add-transaction')}
+                        className="fixed bottom-[88px] right-margin-mobile md:right-8 w-14 h-14 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all z-40"
+                    >
+                        <Icon name="add" className="text-3xl" />
+                    </button>
+                </div>
+            );
+        };
+
+        const AccountsPage = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="pt-20 desktop-content pb-24 md:pb-8 px-4">
+                    <section className="bg-surface rounded-xl p-8 shadow-ambient mb-8 flex flex-col items-center justify-center max-w-3xl mx-auto relative overflow-hidden">
+                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/20 rounded-full blur-2xl" />
+                        <p className="text-body-sm text-on-surface-variant mb-2">Total Net Balance</p>
+                        <h2 className="text-display-hero-mobile md:text-display-hero font-bold">$42,590.00</h2>
+                        <div className="mt-4 flex items-center space-x-2">
+                            <Icon name="arrow_upward" className="text-primary text-sm" />
+                            <span className="text-body-sm text-primary font-bold">+$1,240.50 (3.2%)</span>
+                            <span className="text-body-sm text-on-surface-variant">this month</span>
+                        </div>
+                    </section>
+
+                    <div className="max-w-3xl mx-auto">
+                        <div className="flex justify-between items-end mb-4">
+                            <h3 className="text-headline-md font-bold">Your Accounts</h3>
+                            <button className="text-label-caps text-primary font-bold uppercase hover:underline">Add New</button>
+                        </div>
+                        <div className="space-y-4">
+                            {[
+                                { name: "Cash Wallet", sub: "Everyday spending", val: "$1,250.00", icon: "payments", color: "bg-primary-container" },
+                                { name: "Main Bank", sub: "Checking account", val: "$15,840.00", icon: "account_balance", color: "bg-tertiary-container", id: "main-bank" },
+                                { name: "High-Yield Savings", sub: "Emergency fund", val: "$28,500.00", icon: "savings", color: "bg-surface-container-high" },
+                                { name: "Platinum Card", sub: "Credit line", val: "-$3,000.00", icon: "credit_card", color: "bg-secondary-container", error: "Due in 5 days" }
+                            ].map((acc, idx) => (
+                                <div 
+                                    key={idx} 
+                                    onClick={() => acc.id && navigate(`/account/${acc.id}`)}
+                                    className="bg-surface rounded-xl p-4 shadow-sm flex items-center hover:bg-surface-container-low transition-colors cursor-pointer group"
+                                >
+                                    <div className={`w-12 h-12 rounded-full ${acc.color} flex items-center justify-center mr-4 group-hover:scale-105 transition-transform`}>
+                                        <Icon name={acc.icon} fill />
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h4 className="text-body-lg font-bold">{acc.name}</h4>
+                                        <p className="text-body-sm text-on-surface-variant">{acc.sub}</p>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="text-numeric-data font-bold">{acc.val}</p>
+                                        {acc.error && <p className="text-[10px] text-error font-bold">{acc.error}</p>}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const CategoriesPage = () => {
+            const [tab, setTab] = useState('expense');
+            return (
+                <div className="pt-20 desktop-content pb-24 md:pb-8 px-4 max-w-4xl mx-auto">
+                    <div className="bg-surface-container-low rounded-full p-1 flex mb-8">
+                        <button 
+                            onClick={() => setTab('expense')}
+                            className={`flex-1 py-2 text-center text-body-sm font-bold rounded-full transition-all ${tab === 'expense' ? 'bg-surface shadow-sm text-primary' : 'text-on-surface-variant'}`}
+                        >
+                            Expense
+                        </button>
+                        <button 
+                            onClick={() => setTab('income')}
+                            className={`flex-1 py-2 text-center text-body-sm font-bold rounded-full transition-all ${tab === 'income' ? 'bg-surface shadow-sm text-primary' : 'text-on-surface-variant'}`}
+                        >
+                            Income
+                        </button>
+                    </div>
+
+                    <div className="space-y-4">
+                        {(tab === 'expense' ? [
+                            { name: "Food & Dining", icon: "restaurant", color: "bg-secondary-container", count: 12 },
+                            { name: "Transportation", icon: "directions_car", color: "bg-tertiary-container", count: 5 },
+                            { name: "Housing & Rent", icon: "home", color: "bg-primary-container", count: "Fixed" },
+                            { name: "Shopping", icon: "shopping_bag", color: "bg-surface-container-highest", count: 3 }
+                        ] : [
+                            { name: "Salary", icon: "payments", color: "bg-primary-container", count: "Primary" },
+                            { name: "Investments", icon: "show_chart", color: "bg-tertiary-container", count: "Dividends" }
+                        ]).map((cat, idx) => (
+                            <div key={idx} className="bg-surface rounded-xl p-4 flex items-center shadow-sm hover:bg-surface-container transition-colors group">
+                                <div className={`w-12 h-12 rounded-full ${cat.color} flex items-center justify-center mr-4`}>
+                                    <Icon name={cat.icon} fill />
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="font-bold">{cat.name}</h3>
+                                    <p className="text-body-sm text-on-surface-variant">{cat.count} {typeof cat.count === 'number' ? 'transactions' : ''}</p>
+                                </div>
+                                <button className="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <Icon name="more_vert" />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+
+                    <button className="fixed bottom-[88px] right-margin-mobile md:right-8 w-14 h-14 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg z-40">
+                        <Icon name="add" className="text-3xl" />
+                    </button>
+                </div>
+            );
+        };
+
+        const AccountDetailsPage = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="min-h-screen bg-background">
+                    <TopAppBar title="Main Bank" showMenu={false} />
+                    <main className="pt-20 px-4 max-w-3xl mx-auto pb-24">
+                        <section className="mt-4 mb-6">
+                            <div className="bg-surface rounded-xl p-6 shadow-ambient flex flex-col gap-6">
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <p className="text-body-sm text-on-surface-variant">Checking Account</p>
+                                        <p className="text-body-sm font-mono tracking-widest text-outline-variant">•••• 4829</p>
+                                    </div>
+                                    <div className="bg-surface-container-low p-2 rounded-full"><Icon name="account_balance" className="text-primary" /></div>
+                                </div>
+                                <div>
+                                    <p className="text-body-sm text-on-surface-variant mb-1">Available Balance</p>
+                                    <h2 className="text-display-hero-mobile font-bold">$12,450.00</h2>
+                                </div>
+                                <div className="flex gap-3">
+                                    <button className="flex-1 bg-primary text-on-primary rounded-full py-2 flex items-center justify-center gap-2 shadow-md"><Icon name="sync_alt" className="text-sm"/> Transfer</button>
+                                    <button className="flex-1 bg-surface-container rounded-full py-2 flex items-center justify-center gap-2">Edit</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-headline-md font-bold">Recent Activity</h3>
+                            <button className="text-primary text-body-sm">View All</button>
+                        </div>
+                        <div className="space-y-3">
+                            {[
+                                { name: "Whole Foods", cat: "Groceries", date: "Today", val: "-$84.20", icon: "shopping_cart" },
+                                { name: "Electric Co.", cat: "Utilities", date: "Yesterday", val: "-$112.50", icon: "bolt" },
+                                { name: "Payroll Deposit", cat: "Income", date: "Oct 12", val: "+$3,200.00", icon: "arrow_downward", pos: true }
+                            ].map((tx, idx) => (
+                                <div key={idx} className="bg-surface rounded-lg p-3 flex items-center gap-4 shadow-sm">
+                                    <div className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center"><Icon name={tx.icon} className="text-primary" /></div>
+                                    <div className="flex-grow">
+                                        <p className="font-bold truncate">{tx.name}</p>
+                                        <p className="text-body-sm text-on-surface-variant">{tx.cat} • {tx.date}</p>
+                                    </div>
+                                    <div className={`text-numeric-data font-bold ${tx.pos ? "text-primary" : ""}`}>{tx.val}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </main>
+                    <BottomNavBar />
+                </div>
+            );
+        };
+
+        const SettingsPage = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="min-h-screen bg-background pb-24 md:pb-8">
+                    <header className="fixed top-0 left-0 right-0 h-16 z-50 bg-background flex items-center justify-between px-4">
+                        <button onClick={() => navigate(-1)} className="p-2"><Icon name="arrow_back" /></button>
+                        <h1 className="text-headline-md font-bold">Settings</h1>
+                        <div className="w-10"></div>
+                    </header>
+                    <main className="pt-20 px-4 max-w-2xl mx-auto space-y-8">
+                        <section 
+                            onClick={() => navigate('/profile-security')}
+                            className="bg-surface rounded-xl p-6 shadow-sm flex items-center gap-4 cursor-pointer hover:bg-surface-container-low transition-all"
+                        >
+                            <img className="w-16 h-16 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzQpCgDnoUmqJBJUtv-bZA29-GWN6YG0AVZMSaY6jCmzqvG02oMllLYWRG-jMWCVKw121quLip488Tu3J_7sgJ-Ir21kKX0dmJXsmhRDUSLUbgQX9MA6e0yGuCeqnyKBmM9YAW1ZEZy1PibsbTP3uBbAmkkTDpratarJGfelwFwarYyecI-1LBA_NVXGDntYj4WFTwem59Z9rVAufpEKhuvlLK6_lM0Q7RoR0JVD7fjzHkrQZmENAJqQ" alt="User" />
+                            <div className="flex-1">
+                                <h3 className="text-headline-md font-bold">Alex Morgan</h3>
+                                <p className="text-body-sm text-on-surface-variant">alex.morgan@example.com</p>
+                            </div>
+                            <Icon name="chevron_right" className="text-outline-variant" />
+                        </section>
+
+                        <section className="space-y-4">
+                            <h2 className="text-label-caps text-on-surface-variant uppercase pl-2">Preferences</h2>
+                            <div className="bg-surface rounded-xl overflow-hidden divide-y divide-surface-variant/50 shadow-sm">
+                                {[{icon:"payments", label: "Currency", val: "USD ($)"}, {icon:"language", label: "Language", val: "English"}, {icon:"palette", label: "Appearance", val: "Light Mode"}].map((item, idx) => (
+                                    <div key={idx} className="flex items-center justify-between p-4 hover:bg-surface-container-low cursor-pointer">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary"><Icon name={item.icon} /></div>
+                                            <span className="font-body-lg">{item.label}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-body-sm text-on-surface-variant">{item.val}</span>
+                                            <Icon name="chevron_right" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                        <button className="w-full py-4 border border-error text-error rounded-xl font-bold hover:bg-error/10 transition-colors">Log Out</button>
+                    </main>
+                </div>
+            );
+        };
+
+        const ProfileSecurityPage = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="min-h-screen bg-background pb-24 md:pb-8">
+                    <header className="fixed top-0 left-0 right-0 h-16 z-50 bg-background flex items-center justify-between px-4">
+                        <button onClick={() => navigate(-1)} className="p-2"><Icon name="arrow_back" /></button>
+                        <h1 className="text-headline-md font-bold">Profile & Security</h1>
+                        <div className="w-10"></div>
+                    </header>
+                    <main className="pt-20 px-4 max-w-3xl mx-auto space-y-6">
+                        <section className="bg-surface rounded-xl p-6 shadow-sm space-y-6">
+                            <h2 className="text-label-caps text-primary uppercase font-bold tracking-widest">Personal Details</h2>
+                            <div className="flex justify-center mb-2">
+                                <div className="w-24 h-24 rounded-full bg-surface-variant relative group cursor-pointer overflow-hidden border-4 border-surface">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGPENnu6bbry8ETC1g9_Z9Y3BqTDTNqg2GlO9P-bXfmwSw4g-s9hoN0gYQ8yToydHAv8-4uOCa6WjEX4841HKZMSpl-qLr7pG8_gBy4vzEvtzieos-v57RUQ83ScmJxCQdfsNdfJEZtRIkx5q2au47Y6Gjk2Yy3oTVBNdgNBE-3quZkTFZ_WJQJ9c7kI2vkNWgfpmgqIIK5Gtpqe-qgL479xqlErkkKjUCnTaR9Ljkx-QJAFt9hEWH4Q" className="w-full h-full object-cover" />
+                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <Icon name="edit" className="text-white" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="space-y-4">
+                                <div><label className="text-body-sm text-on-surface-variant block mb-1">Username</label><input className="w-full bg-surface-container-lowest border-outline-variant rounded-lg p-3" value="alex_anderson" readOnly /></div>
+                                <div><label className="text-body-sm text-on-surface-variant block mb-1">Phone</label><input className="w-full bg-surface-container-lowest border-outline-variant rounded-lg p-3" value="+1 (555) 019-2834" readOnly /></div>
+                            </div>
+                        </section>
+                        <button className="w-full bg-primary text-on-primary font-bold py-4 rounded-full shadow-lg flex items-center justify-center gap-2">
+                            <Icon name="save" /> Save Changes
+                        </button>
+                    </main>
+                </div>
+            );
+        };
+
+        const AddTransactionPage = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="min-h-screen bg-background">
+                    <header className="h-16 flex items-center justify-between px-4 border-b border-surface-container">
+                        <button onClick={() => navigate(-1)} className="p-2"><Icon name="close" /></button>
+                        <h1 className="text-headline-md font-bold">Add Transaction</h1>
+                        <button className="text-primary font-bold uppercase p-2">Save</button>
+                    </header>
+                    <main className="px-4 pt-6 max-w-2xl mx-auto flex flex-col h-[calc(100vh-64px)]">
+                        <div className="bg-surface-container rounded-full p-1 flex mb-8">
+                            <button className="flex-1 py-2 text-label-caps font-bold bg-surface rounded-full shadow-sm text-primary">Income</button>
+                            <button className="flex-1 py-2 text-label-caps font-bold text-on-surface-variant">Expense</button>
+                            <button className="flex-1 py-2 text-label-caps font-bold text-on-surface-variant">Transfer</button>
+                        </div>
+                        <div className="flex flex-col items-center mb-8">
+                            <span className="text-body-sm text-on-surface-variant mb-1">Amount</span>
+                            <div className="text-display-hero font-bold">$ 0.00</div>
+                        </div>
+                        <div className="space-y-4 mb-auto">
+                            <div className="flex gap-4">
+                                <div className="flex-1 bg-surface rounded-xl p-6 flex flex-col items-center gap-2 shadow-sm"><Icon name="account_balance" className="text-primary" /> <span className="text-label-caps">Account</span></div>
+                                <div className="flex-1 bg-surface rounded-xl p-6 flex flex-col items-center gap-2 shadow-sm"><Icon name="category" className="text-secondary" /> <span className="text-label-caps">Category</span></div>
+                            </div>
+                            <div className="bg-surface rounded-xl p-4 flex items-center gap-3 shadow-sm">
+                                <Icon name="notes" className="text-on-surface-variant" />
+                                <input className="bg-transparent border-none focus:ring-0 p-0 flex-1" placeholder="Add notes..." />
+                            </div>
+                        </div>
+                        <div className="bg-surface rounded-xl shadow-lg p-2 mt-auto mb-8">
+                            <div className="grid grid-cols-4 gap-2">
+                                {[7,8,9,"delete",4,5,6,"plus",1,2,3,"minus",".",0,"equals"].map((k, i) => (
+                                    <button 
+                                        key={i} 
+                                        className={`h-14 rounded-lg flex items-center justify-center font-bold text-lg active:scale-95 transition-all 
+                                            ${k === 'equals' ? "col-span-2 bg-primary text-on-primary" : "bg-surface-container-low"}
+                                            ${typeof k === 'string' && k !== '.' && k !== 'equals' ? "text-on-surface-variant" : "text-on-surface"}`}
+                                    >
+                                        {k === 'delete' ? <Icon name="backspace" /> : 
+                                         k === 'plus' ? "+" : 
+                                         k === 'minus' ? "-" : 
+                                         k === 'equals' ? "=" : k}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        // --- App Shell ---
+
+        const App = () => {
+            const location = useLocation();
+            const hideShell = ['/add-transaction', '/profile-security', '/settings'].includes(location.pathname) || location.pathname.startsWith('/account/');
+
+            const getTitle = () => {
+                switch(location.pathname) {
+                    case '/analysis': return 'Analysis';
+                    case '/records': return 'Moneta Trail';
+                    case '/budgets': return 'Budgets';
+                    case '/accounts': return 'Accounts';
+                    case '/categories': return 'Categories';
+                    default: return 'Moneta Trail';
+                }
+            }
+
+            return (
+                <div className="min-h-screen bg-background">
+                    {!hideShell && (
+                        <>
+                            <TopAppBar title={getTitle()} />
+                            <SideNav />
+                            <BottomNavBar />
+                        </>
+                    )}
+                    <Routes>
+                        <Route path="/" element={<RecordsPage />} />
+                        <Route path="/records" element={<RecordsPage />} />
+                        <Route path="/analysis" element={<AnalysisPage />} />
+                        <Route path="/budgets" element={<BudgetsPage />} />
+                        <Route path="/accounts" element={<AccountsPage />} />
+                        <Route path="/categories" element={<CategoriesPage />} />
+                        <Route path="/account/:id" element={<AccountDetailsPage />} />
+                        <Route path="/settings" element={<SettingsPage />} />
+                        <Route path="/profile-security" element={<ProfileSecurityPage />} />
+                        <Route path="/add-transaction" element={<AddTransactionPage />} />
+                    </Routes>
+                </div>
+            );
+        };
+
+        const Root = () => (
+            <MemoryRouter>
+                <App />
+            </MemoryRouter>
+        );
+
+        const container = document.getElementById('root');
+        const root = createRoot(container);
+        root.render(<Root />);
+    </script>
+</body>
+</html>

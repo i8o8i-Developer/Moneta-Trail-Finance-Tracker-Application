@@ -1,0 +1,235 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "Moneta Trail Design System Tokens",
+  "version": "1.0.0",
+  "brand": {
+    "name": "Moneta Trail",
+    "tagline": "Financial Control & Mindful Wealth Management"
+  },
+  "colors": {
+    "primary": {
+      "50": "#e6f7f0",
+      "100": "#6ffbbe",
+      "200": "#4edea3",
+      "300": "#26d08b",
+      "400": "#10b981",
+      "500": "#00a36c",
+      "600": "#006c49",
+      "700": "#005236",
+      "800": "#00422b",
+      "900": "#002113",
+      "950": "#00140a",
+      "DEFAULT": "#006c49",
+      "container": "#10b981",
+      "onPrimary": "#ffffff",
+      "onPrimaryContainer": "#00422b"
+    },
+    "secondary": {
+      "50": "#ffeef0",
+      "100": "#ffdad7",
+      "200": "#ffb3ad",
+      "300": "#f87171",
+      "400": "#ef4444",
+      "500": "#da3437",
+      "600": "#b61722",
+      "700": "#930013",
+      "800": "#67000b",
+      "900": "#410004",
+      "950": "#260002",
+      "DEFAULT": "#b61722",
+      "container": "#da3437",
+      "onSecondary": "#ffffff",
+      "onSecondaryContainer": "#fffbff"
+    },
+    "tertiary": {
+      "50": "#eff6ff",
+      "100": "#d8e2ff",
+      "200": "#adc6ff",
+      "300": "#71a1ff",
+      "400": "#3b82f6",
+      "500": "#005ac2",
+      "600": "#004395",
+      "700": "#00367a",
+      "800": "#002353",
+      "900": "#001a42",
+      "950": "#000f2b",
+      "DEFAULT": "#005ac2",
+      "container": "#71a1ff",
+      "onTertiary": "#ffffff",
+      "onTertiaryContainer": "#00367a"
+    },
+    "neutral": {
+      "50": "#ffffff",
+      "100": "#eff4ff",
+      "200": "#f8f9ff",
+      "300": "#e5eeff",
+      "400": "#dce9ff",
+      "500": "#d3e4fe",
+      "600": "#bbcabf",
+      "700": "#6c7a71",
+      "800": "#3c4a42",
+      "900": "#213145",
+      "950": "#0b1c30",
+      "surface": "#f8f9ff",
+      "surfaceLow": "#eff4ff",
+      "surfaceContainer": "#e5eeff",
+      "surfaceContainerHigh": "#dce9ff",
+      "surfaceContainerHighest": "#d3e4fe",
+      "onSurface": "#0b1c30",
+      "onSurfaceVariant": "#3c4a42",
+      "outline": "#6c7a71",
+      "outlineVariant": "#bbcabf"
+    },
+    "semantic": {
+      "income": "#10b981",
+      "expense": "#ef4444",
+      "transfer": "#3b82f6",
+      "warning": "#f59e0b",
+      "info": "#005ac2"
+    },
+    "categories": {
+      "housing": "#3b82f6",
+      "groceries": "#10b981",
+      "dining": "#f59e0b",
+      "transportation": "#8b5cf6",
+      "entertainment": "#ec4899",
+      "clothing": "#06b6d4",
+      "pets": "#14b8a6",
+      "health": "#ef4444"
+    }
+  },
+  "typography": {
+    "fontFamily": "Inter, system-ui, -apple-system, sans-serif",
+    "scale": {
+      "display-hero": {
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "lineHeight": "48px",
+        "letterSpacing": "-0.02em"
+      },
+      "display-hero-mobile": {
+        "fontSize": "32px",
+        "fontWeight": "700",
+        "lineHeight": "40px",
+        "letterSpacing": "-0.02em"
+      },
+      "headline-md": {
+        "fontSize": "20px",
+        "fontWeight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0em"
+      },
+      "numeric-data": {
+        "fontSize": "18px",
+        "fontWeight": "600",
+        "lineHeight": "24px",
+        "letterSpacing": "0em",
+        "fontVariantNumeric": "tabular-nums"
+      },
+      "body-lg": {
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "0em"
+      },
+      "body-sm": {
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "letterSpacing": "0em"
+      },
+      "label-caps": {
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "lineHeight": "16px",
+        "letterSpacing": "0.05em",
+        "textTransform": "uppercase"
+      }
+    }
+  },
+  "spacing": {
+    "base": "4px",
+    "xs": "4px",
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "20px",
+    "2xl": "24px",
+    "3xl": "32px",
+    "cardPadding": "20px",
+    "marginMobile": "16px",
+    "marginDesktop": "24px",
+    "gutter": "16px"
+  },
+  "radii": {
+    "sm": "4px",
+    "default": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "24px",
+    "full": "9999px"
+  },
+  "elevation": {
+    "card": "0px 4px 20px rgba(11, 28, 48, 0.05)",
+    "floating": "0px 8px 30px rgba(11, 28, 48, 0.12)",
+    "modal": "0px 16px 40px rgba(11, 28, 48, 0.18)"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "bg": "#10b981",
+        "color": "#ffffff",
+        "radius": "16px",
+        "padding": "12px 24px",
+        "fontWeight": "600"
+      },
+      "secondary": {
+        "bg": "#e6f7f0",
+        "color": "#006c49",
+        "radius": "16px",
+        "padding": "12px 24px",
+        "fontWeight": "600"
+      },
+      "outlined": {
+        "bg": "transparent",
+        "border": "1px solid #bbcabf",
+        "color": "#0b1c30",
+        "radius": "16px",
+        "padding": "12px 24px",
+        "fontWeight": "600"
+      },
+      "inverted": {
+        "bg": "#213145",
+        "color": "#ffffff",
+        "radius": "16px",
+        "padding": "12px 24px",
+        "fontWeight": "600"
+      },
+      "icon": {
+        "size": "40px",
+        "radius": "9999px",
+        "bgHover": "#e5eeff"
+      }
+    },
+    "progressBar": {
+      "trackBg": "#e5eeff",
+      "fillPrimary": "#10b981",
+      "height": "8px",
+      "radius": "9999px"
+    },
+    "searchBar": {
+      "bg": "#eff4ff",
+      "color": "#0b1c30",
+      "placeholderColor": "#6c7a71",
+      "radius": "9999px",
+      "padding": "10px 18px"
+    },
+    "bottomNav": {
+      "bg": "rgba(248, 249, 255, 0.85)",
+      "backdropBlur": "12px",
+      "activeColor": "#006c49",
+      "inactiveColor": "#6c7a71",
+      "height": "64px"
+    }
+  }
+}

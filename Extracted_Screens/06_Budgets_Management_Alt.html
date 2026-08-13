@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Moneta Trail - Budgets</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#30353a",
+                        "primary-container": "#00ffc2",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-primary-fixed": "#002116",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed": "#400011",
+                        "surface-tint": "#00e1ab",
+                        "on-tertiary-fixed-variant": "#5700c9",
+                        "outline-variant": "#3a4a43",
+                        "surface-container-high": "#262b2f",
+                        "on-secondary": "#670021",
+                        "surface-bright": "#353a3e",
+                        "on-surface-variant": "#b9cbc1",
+                        "surface-container-low": "#171c20",
+                        "outline": "#83958c",
+                        "secondary-container": "#cb0149",
+                        "surface-variant": "#30353a",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0f1418",
+                        "inverse-surface": "#dfe3e9",
+                        "on-tertiary-fixed": "#23005b",
+                        "tertiary-container": "#e9dcff",
+                        "on-secondary-container": "#ffdcde",
+                        "primary": "#fbfffa",
+                        "tertiary-fixed-dim": "#d1bcff",
+                        "on-primary-container": "#007255",
+                        "secondary-fixed": "#ffd9dc",
+                        "primary-fixed": "#36ffc4",
+                        "on-surface": "#dfe3e9",
+                        "inverse-on-surface": "#2c3135",
+                        "secondary": "#ffb2bb",
+                        "on-tertiary": "#3c0090",
+                        "inverse-primary": "#006c50",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#0a0f13",
+                        "tertiary": "#fffeff",
+                        "on-primary-fixed-variant": "#00513c",
+                        "on-primary": "#003828",
+                        "surface-container": "#1b2024",
+                        "background": "#0f1418",
+                        "secondary-fixed-dim": "#ffb2bb",
+                        "on-tertiary-container": "#7727ff",
+                        "primary-fixed-dim": "#00e1ab",
+                        "surface": "#0f1418",
+                        "on-background": "#dfe3e9",
+                        "on-secondary-fixed-variant": "#910032"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "element-gap": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "section-margin": "48px",
+                        "container-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Outfit"],
+                        "display-hero-mobile": ["Outfit"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-hero": ["Outfit"],
+                        "headline-lg": ["Outfit"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-caps": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "display-hero-mobile": ["36px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-hero": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Ambient Background */
+        body {
+            background-color: #0f1418;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+            color: #dfe3e9;
+        }
+        
+        .ambient-light {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .ambient-light-1 {
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, #00ffc2 0%, transparent 70%);
+        }
+
+        .ambient-light-2 {
+            bottom: -20%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: radial-gradient(circle, #cb0149 0%, transparent 70%);
+        }
+
+        /* Glassmorphism Panel (Level 1) */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+        }
+
+        /* Hero Text Glow */
+        .text-glow-primary {
+            text-shadow: 0 0 20px rgba(0, 255, 194, 0.4);
+        }
+
+        /* Liquid Progress Bar Container */
+        .progress-track {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 9999px;
+            overflow: hidden;
+            height: 8px;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Liquid Fill Animation */
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: liquid-shimmer 2s infinite linear;
+        }
+
+        @keyframes liquid-shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Glowing Button */
+        .btn-glow {
+            background: linear-gradient(135deg, #00ffc2, #fffeff);
+            color: #002116;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-glow:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 194, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gradient-safe { background-image: linear-gradient(90deg, #36ffc4, #00e1ab); }
+        .gradient-warning { background-image: linear-gradient(90deg, #ffb2bb, #cb0149); }
+        .gradient-danger { background-image: linear-gradient(90deg, #ffb4ab, #93000a); }
+
+        /* Thin Stroke Duotone Icons */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .icon-accent {
+            color: #00ffc2;
+            text-shadow: 0 0 10px rgba(0, 255, 194, 0.3);
+        }
+
+        /* Safe area for mobile nav */
+        .pb-safe { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+        
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Ambient Lighting Elements -->
+<div class="ambient-light ambient-light-1"></div>
+<div class="ambient-light ambient-light-2"></div>
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/30 dark:bg-surface-container-lowest/30 backdrop-blur-[30px] shadow-none flex justify-between items-center px-gutter h-16 max-w-7xl mx-auto left-0 right-0">
+<div class="flex items-center gap-element-gap cursor-pointer hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/20">
+<img class="w-full h-full object-cover" data-alt="A futuristic, highly detailed 3D avatar of a sophisticated user profile, rendered in an isometric perspective. The avatar features sleek, glowing cybernetic elements and a holographic visor, illuminated by vibrant neon emerald and soft magenta lighting against a dark void background. The aesthetic is premium glassmorphism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI8H_oR1rLpxPHuoWDrFLlhHp_-YhUXBHn3TdJd8XfkInV5VIS09vfoO5dP4yaxAdNHigjGe1mbgh8RCCAIvNXv3srJeebKx9k0wjNnZtNZgEOsoa9chno3SdVeqEwhOhUzf4Sh0mDbZoJ2e4PGyqR6VGidpm6FuVr2OSAvB_nWUFmfngy9Tva5EC81b_HfuTA4edrlXZYjYZpzo-H6oDKVcwcRJGxP7m17XOW2MEHK-LodkB6sYAXTA"/>
+</div>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-primary dark:text-primary-fixed">Moneta Trail</h1>
+<div class="flex items-center gap-element-gap text-on-surface-variant dark:text-on-surface-variant cursor-pointer hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-12 gap-unit md:gap-element-gap">
+<!-- Hero: Total Budget Summary -->
+<section class="col-span-4 md:col-span-12 mb-section-margin">
+<div class="glass-panel p-container-padding flex flex-col items-center justify-center text-center relative overflow-hidden group">
+<!-- Subtle background mesh/texture placeholder -->
+<div class="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none" data-alt="A highly detailed, seamless futuristic grid pattern with subtle glowing nodes and intersecting lines. Rendered in monochromatic deep blacks and bright whites to act as an abstract technological texture overlay in a dark mode UI. The mood is precise, digital, and premium." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDlimvklV9ywghvN8ekkskOutif95K0LQWCJiTWExDgTUtgYFeYJFJJrtFkpsAeznQb-Vu4dtpyOAuv90loyWQD7UNFcsyqBeed7HlYRVfycGrtPxBkGrUnVMdEWScH0gJOdUYoiT6QU1c7bIHbNcIwyFu0BbGajJGmuLkmKcw7eLojYoPl9HaZnPxQ6SvO7I_l3juphdGgNeL0qrXcoeA7VSRpAe80Vh6wzgr0iq7kexc3wremQ4DLvA')"></div>
+<h2 class="font-label-caps text-label-caps text-outline uppercase tracking-widest mb-4">Total Monthly Budget</h2>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="font-display-hero-mobile md:font-display-hero text-display-hero-mobile md:text-display-hero text-primary text-glow-primary">$4,250.00</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant">/ $5,000</span>
+</div>
+<p class="font-body-md text-body-md text-primary-fixed-dim mt-2">85% Utilized • $750 Remaining</p>
+<!-- Master Progress -->
+<div class="w-full max-w-md mt-8">
+<div class="progress-track">
+<div class="progress-fill bg-gradient-to-r from-primary-container to-secondary-container" style="width: 85%;"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Grid -->
+<section class="col-span-4 md:col-span-8 flex flex-col gap-element-gap">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Allocations</h3>
+<!-- Category Card: Safe (Green/Blue) -->
+<div class="glass-panel p-gutter flex flex-col gap-unit cursor-pointer group">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center border border-primary-container/20">
+<span class="material-symbols-outlined icon-accent" data-icon="home">home</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-bold text-primary group-hover:text-primary-container transition-colors">Housing</h4>
+<p class="font-label-caps text-label-caps text-outline">Fixed Expense</p>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline-md text-headline-md text-primary">$2,000</div>
+<div class="font-label-caps text-label-caps text-outline">of $2,000</div>
+</div>
+</div>
+<div class="progress-track mt-2">
+<!-- 100% full, standard color -->
+<div class="progress-fill gradient-safe" style="width: 100%;"></div>
+</div>
+</div>
+<!-- Category Card: Warning (Orange/Yellow vibes mapped to brand) -->
+<div class="glass-panel p-gutter flex flex-col gap-unit cursor-pointer group">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed/10 flex items-center justify-center border border-secondary-fixed/20">
+<span class="material-symbols-outlined text-secondary" data-icon="restaurant">restaurant</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-bold text-primary group-hover:text-secondary-fixed transition-colors">Dining &amp; Entertainment</h4>
+<p class="font-label-caps text-label-caps text-outline">Variable Expense</p>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline-md text-headline-md text-primary">$850</div>
+<div class="font-label-caps text-label-caps text-outline">of $1,000</div>
+</div>
+</div>
+<div class="progress-track mt-2">
+<!-- 85% full, approaching warning color -->
+<div class="progress-fill gradient-warning" style="width: 85%;"></div>
+</div>
+</div>
+<!-- Category Card: Danger (Red/Neon) -->
+<div class="glass-panel p-gutter flex flex-col gap-unit cursor-pointer group border-error-container/30">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center border border-error-container/40">
+<span class="material-symbols-outlined text-error" data-icon="directions_car">directions_car</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-bold text-primary group-hover:text-error transition-colors">Transportation</h4>
+<p class="font-label-caps text-label-caps text-error">Over Budget</p>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline-md text-headline-md text-error">$650</div>
+<div class="font-label-caps text-label-caps text-outline">of $500</div>
+</div>
+</div>
+<div class="progress-track mt-2">
+<!-- >100% full, danger color -->
+<div class="progress-fill gradient-danger" style="width: 100%;"></div>
+</div>
+</div>
+</section>
+<!-- Unbudgeted / Insights Section -->
+<section class="col-span-4 md:col-span-4 flex flex-col gap-element-gap mt-section-margin md:mt-0">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Unbudgeted</h3>
+<div class="glass-panel p-container-padding flex flex-col justify-between h-full relative overflow-hidden group border-tertiary-fixed/20 hover:border-tertiary-fixed/40">
+<!-- Abstract 3D shape graphic -->
+<div class="absolute -right-8 -top-8 w-32 h-32 opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none" data-alt="A mesmerizing, abstract 3D glassmorphic sphere floating in dark space. The sphere refracts light, showing internal glows of deep cyan and magenta. Rendered with hyper-realistic textures, showcasing the futuristic glass aesthetic of the UI. Background is pure dark mode black to blend seamlessly." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCPvWmtO3XXZQYkdZpJngM6Oi4_xi_hVQd_tsa_fZeySHrIK3r5wG7Wq43_TFGo4qsazb2jjwRZWDOKLiNtpaUdyyPGxR8_8ZuU-_GoOGgGwz1gdz8wxncW8TZH-YtS95_UNZ1qpMLqnV5pdLRLXiDIV7lh1m6BN8P5toKhW7CZNB_VPdKRAkA_xDqh7QZNOoccnpft6wlMxhqM_0w0V5ZdCAWPK75hvo9PmcGLtr5LFTCB1vOTkRB5Zg')"></div>
+<div>
+<div class="flex items-center gap-2 mb-4 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Uncategorized Spend</span>
+</div>
+<div class="font-display-hero-mobile text-display-hero-mobile text-primary mb-2">$320.00</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">You have 4 transactions this month that haven't been assigned to a budget category.</p>
+</div>
+<button class="w-full btn-glow py-3 rounded-lg font-headline-md text-body-lg font-bold flex items-center justify-center gap-2">
+<span>Review Transactions</span>
+<span class="material-symbols-outlined font-bold text-on-primary-fixed" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile / Tablet) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-2 pb-safe z-50 bg-surface/30 dark:bg-surface-container-lowest/30 backdrop-blur-[30px] rounded-t-xl shadow-[0_-4px_20px_rgba(0,0,0,0.4)] md:hidden">
+<!-- Inactive: Records -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:bg-white/5 transition-colors active:scale-90 duration-200 w-16 h-full rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-caps text-[10px] mt-1">Records</span>
+</a>
+<!-- Inactive: Analysis -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:bg-white/5 transition-colors active:scale-90 duration-200 w-16 h-full rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-[10px] mt-1">Analysis</span>
+</a>
+<!-- Active: Budgets -->
+<a class="flex flex-col items-center justify-center text-primary-container dark:text-primary-fixed font-bold hover:bg-white/5 transition-colors active:scale-90 duration-200 w-16 h-full rounded-lg relative" href="#">
+<!-- Active indicator dot -->
+<div class="absolute top-1 w-1 h-1 rounded-full bg-primary-container shadow-[0_0_8px_#00ffc2]"></div>
+<span class="material-symbols-outlined icon-accent" data-icon="account_balance_wallet" data-weight="fill" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-label-caps text-[10px] mt-1">Budgets</span>
+</a>
+<!-- Inactive: Accounts -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:bg-white/5 transition-colors active:scale-90 duration-200 w-16 h-full rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-caps text-[10px] mt-1">Accounts</span>
+</a>
+<!-- Inactive: Categories -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:bg-white/5 transition-colors active:scale-90 duration-200 w-16 h-full rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-label-caps text-[10px] mt-1">Categories</span>
+</a>
+</nav>
+</body></html>

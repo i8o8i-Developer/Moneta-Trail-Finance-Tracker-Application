@@ -1,0 +1,310 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Moneta Trail - Accounts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#0b1c30",
+                      "tertiary-fixed-dim": "#adc6ff",
+                      "on-secondary-fixed-variant": "#930013",
+                      "on-error-container": "#93000a",
+                      "surface-container": "#e5eeff",
+                      "surface-tint": "#006c49",
+                      "on-tertiary-fixed-variant": "#004395",
+                      "surface-container-highest": "#d3e4fe",
+                      "tertiary-container": "#71a1ff",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#10b981",
+                      "on-primary-container": "#00422b",
+                      "secondary-container": "#da3437",
+                      "tertiary": "#005ac2",
+                      "primary-fixed-dim": "#4edea3",
+                      "on-tertiary-container": "#00367a",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#410004",
+                      "primary": "#006c49",
+                      "surface-container-high": "#dce9ff",
+                      "secondary-fixed-dim": "#ffb3ad",
+                      "inverse-primary": "#4edea3",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#6c7a71",
+                      "inverse-surface": "#213145",
+                      "on-primary-fixed": "#002113",
+                      "error": "#ba1a1a",
+                      "surface-bright": "#f8f9ff",
+                      "surface": "#f8f9ff",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#b61722",
+                      "tertiary-fixed": "#d8e2ff",
+                      "on-surface-variant": "#3c4a42",
+                      "surface-container-low": "#eff4ff",
+                      "outline-variant": "#bbcabf",
+                      "on-tertiary-fixed": "#001a42",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-error": "#ffffff",
+                      "primary-fixed": "#6ffbbe",
+                      "background": "#f8f9ff",
+                      "secondary-fixed": "#ffdad7",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-surface": "#0b1c30",
+                      "on-secondary-container": "#fffbff",
+                      "surface-variant": "#d3e4fe",
+                      "surface-dim": "#cbdbf5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "24px",
+                      "base": "4px",
+                      "card-padding": "20px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "display-hero-mobile": [
+                              "Inter"
+                      ],
+                      "numeric-data": [
+                              "Inter"
+                      ],
+                      "display-hero": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-hero-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "numeric-data": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-hero": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+          .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+          }
+      </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-lg">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-2 docked full-width top-0 sticky z-40">
+<button class="p-2 hover:bg-surface-container dark:hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="menu">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-md text-on-surface dark:text-on-surface font-bold tracking-tight">Moneta Trail</h1>
+<button class="p-2 hover:bg-surface-container dark:hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<main class="flex-grow px-margin-mobile md:px-margin-desktop py-6 max-w-3xl mx-auto w-full pb-24">
+<!-- Total Balance Card -->
+<section class="bg-surface-container-lowest rounded-xl p-card-padding shadow-[0_4px_12px_rgba(0,0,0,0.05)] mb-8 flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Decorative subtle background blob -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-surface-container-high rounded-full blur-2xl opacity-60"></div>
+<div class="absolute -bottom-10 -left-10 w-32 h-32 bg-primary-container rounded-full blur-2xl opacity-20"></div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-2 relative z-10">Total Balance</p>
+<h2 class="text-display-hero-mobile md:text-display-hero font-display-hero-mobile md:font-display-hero text-on-background relative z-10">$ 42,590.00</h2>
+<div class="mt-4 flex items-center space-x-2 relative z-10">
+<span class="material-symbols-outlined text-primary text-sm">arrow_upward</span>
+<span class="text-body-sm font-body-sm text-primary font-semibold">+$1,240.50 (3.2%)</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">this month</span>
+</div>
+</section>
+<!-- Accounts List -->
+<section>
+<div class="flex justify-between items-end mb-4">
+<h3 class="text-headline-md font-headline-md text-on-background">Your Accounts</h3>
+<button class="text-label-caps font-label-caps text-primary hover:text-primary-fixed-dim transition-colors uppercase">Add New</button>
+</div>
+<div class="space-y-4">
+<!-- Cash Account -->
+<a href="#" class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex items-center hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center mr-4 shrink-0">
+<span class="material-symbols-outlined text-on-primary-container">payments</span>
+</div>
+<div class="flex-grow">
+<h4 class="text-body-lg font-body-lg text-on-background font-semibold">Cash Wallet</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Everyday spending</p>
+</div>
+<div class="text-right">
+<p class="text-numeric-data font-numeric-data text-on-background">$ 1,250.00</p>
+</div>
+</a>
+<!-- Bank Account -->
+<a href="#" class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex items-center hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center mr-4 shrink-0">
+<span class="material-symbols-outlined text-on-tertiary-container">account_balance</span>
+</div>
+<div class="flex-grow">
+<h4 class="text-body-lg font-body-lg text-on-background font-semibold">Main Bank</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Checking account</p>
+</div>
+<div class="text-right">
+<p class="text-numeric-data font-numeric-data text-on-background">$ 15,840.00</p>
+</div>
+</a>
+<!-- Savings Account -->
+<a href="#" class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex items-center hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mr-4 shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant">savings</span>
+</div>
+<div class="flex-grow">
+<h4 class="text-body-lg font-body-lg text-on-background font-semibold">High-Yield Savings</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Emergency fund</p>
+</div>
+<div class="text-right">
+<p class="text-numeric-data font-numeric-data text-on-background">$ 28,500.00</p>
+</div>
+</a>
+<!-- Credit Card -->
+<a href="#" class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex items-center hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center mr-4 shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container">credit_card</span>
+</div>
+<div class="flex-grow">
+<h4 class="text-body-lg font-body-lg text-on-background font-semibold">Platinum Card</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Credit line</p>
+</div>
+<div class="text-right">
+<p class="text-numeric-data font-numeric-data text-on-background">- $ 3,000.00</p>
+<p class="text-body-sm font-body-sm text-secondary text-xs">Due in 5 days</p>
+</div>
+</a>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-lg fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe h-16">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="receipt_long">receipt_long</span>
+<span class="text-label-caps font-label-caps">Records</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="insert_chart">insert_chart</span>
+<span class="text-label-caps font-label-caps">Analysis</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-label-caps font-label-caps">Budgets</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim after:content-[''] after:w-1 after:h-1 after:bg-primary after:rounded-full after:mt-1 scale-90 transition-all duration-150 w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance">account_balance</span>
+<span class="text-label-caps font-label-caps text-primary font-bold">Accounts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="category">category</span>
+<span class="text-label-caps font-label-caps">Categories</span>
+</a>
+</nav>
+<!-- Desktop Navigation Cluster (Hidden on Mobile) -->
+<nav class="hidden md:flex fixed top-0 left-0 h-full w-64 bg-surface-container-low flex-col pt-20 px-4 border-r border-outline-variant/20 z-30">
+<a class="flex items-center space-x-3 py-3 px-4 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors mb-2" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-body-lg font-body-lg font-semibold">Records</span>
+</a>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors mb-2" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="text-body-lg font-body-lg font-semibold">Analysis</span>
+</a>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors mb-2" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-body-lg font-body-lg font-semibold">Budgets</span>
+</a>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-lg bg-primary-container text-on-primary-container mb-2" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-body-lg font-body-lg font-semibold">Accounts</span>
+</a>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors mb-2" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="text-body-lg font-body-lg font-semibold">Categories</span>
+</a>
+</nav>
+<style>
+        @media (min-width: 768px) {
+            main {
+                padding-left: 17rem; /* Make room for desktop sidebar */
+            }
+        }
+    </style>
+
+
+</body></html>
